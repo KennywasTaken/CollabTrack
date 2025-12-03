@@ -28,9 +28,6 @@
               <a class="nav-link" href="#">Groups</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Account</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Settings</a>
             </li>
           </ul>
@@ -91,15 +88,16 @@
     <div class="card" style="width: 18rem; margin: 30px;">
       <div class="card-body">
         <h4 class="card-title">New Task</h5>
-        <form class="row g-3 mt-1">
+        <form class="row g-3 mt-1" action="http://localhost:6767/tasks" method="post" role="form">
+          <input type="hidden" name="_method" value="post"/>
           <div class="mb-3">
             <strong for="newAccountEmail">Task Name</strong>
-            <input type="email" class="form-control mt-2" placeholder="Name">
+            <input type="text" class="form-control mt-2" placeholder="Name" name="taskName">
           </div>
 
           <div class="col-md-6">
             <strong for="newAccountEmail">Urgency</strong>
-            <select class="mt-2">
+            <select class="mt-2" name="taskUrgency">
               <option>High</option>
               <option>Medium</option>
               <option>Low</option>
@@ -108,7 +106,7 @@
 
           <div class="col-md-6">
             <strong for="newAccountEmail">Importance</strong>
-            <select class="mt-2">
+            <select class="mt-2" name="taskImportance">
               <option>High</option>
               <option>Medium</option>
               <option>Low</option>
@@ -117,12 +115,12 @@
 
           <div class="mb-3">
             <strong for="newAccountEmail">Due Date</strong>
-            <input type="date" class="form-control mt-2" value="2025-11-8">
+            <input type="date" class="form-control mt-2" value="2025-11-8" name="taskDuedate">
           </div>
 
           <div class="mb-2">
             <strong for="newAccountEmail">Task Description</strong>
-            <textarea class="form-control mt-2" placeholder="Enter description..."></textarea>
+            <textarea class="form-control mt-2" placeholder="Enter description..." name="taskDescription"></textarea>
           </div>
 
           <input class="btn btn-success" type="submit" value="Create Task">
@@ -130,11 +128,12 @@
       </div>
     </div>
 
-    <!-- Task Info Page-->
+    <!-- Small Task Info Card -->
     <div class="card" style="width: 25rem; margin: 30px;">
       <div class="card-body">
         <h3 class="card-title text-center">Task 1</h5>
         <form class="mt-3">
+
           <div class="mb-3">
             <strong>Urgency: </strong>
             <label>High</label>
@@ -150,10 +149,52 @@
             <label>2025-10-20</label>
           </div>
 
+          <input class="btn btn-success" type="button" value="View Full Task">
+          <input class="btn btn-success" type="button" value="Edit Task">
+        </form>
+      </div>
+    </div>
+
+    <!-- Task Edit Card-->
+    <div class="card" style="width: 18rem; margin: 30px;">
+      <div class="card-body">
+        <h4 class="card-title">Edit Task</h5>
+        <form class="row g-3 mt-1" action="http://localhost:6767/tasks" method="post" role="form" data-taskId=1>
+          <input type="hidden" name="_method" value="put"/>
           <div class="mb-3">
-            <strong for="newAccountEmail">Description: </strong><br>
-            <p class="border border-primary-black p-2 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus interdum vulputate. Ut dignissim leo nec semper tempus. Maecenas pretium turpis sed efficitur viverra. Mauris volutpat, nisl sit amet lacinia maximus, turpis dui gravida lectus, quis mollis lacus mi sit amet lectus. Ut finibus eget urna et tempor.</p>
+            <strong for="newAccountEmail">Task Name</strong>
+            <input type="text" class="form-control mt-2" placeholder="Name" name="taskName">
           </div>
+
+          <div class="col-md-6">
+            <strong for="newAccountEmail">Urgency</strong>
+            <select class="mt-2" name="taskUrgency">
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <strong for="newAccountEmail">Importance</strong>
+            <select class="mt-2" name="taskImportance">
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <strong for="newAccountEmail">Due Date</strong>
+            <input type="date" class="form-control mt-2" value="2025-11-8" name="taskDuedate">
+          </div>
+
+          <div class="mb-2">
+            <strong for="newAccountEmail">Task Description</strong>
+            <textarea class="form-control mt-2" placeholder="Enter description..." name="taskDescription"></textarea>
+          </div>
+
+          <input class="btn btn-success" type="submit" value="Create Task">
         </form>
       </div>
     </div>
@@ -165,10 +206,10 @@
         <form class="mt-3">
           <div class="mb-3">
             <strong for="newAccountEmail">Members: </strong><br>
-            <img src="/Images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
-            <img src="/Images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
-            <img src="/Images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
-            <img src="/Images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
+            <img src="/images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
+            <img src="/images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
+            <img src="/images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
+            <img src="/images/github-icon-1-logo.webp" class="img-thumbnail mt-2" width="50">
           </div>
 
           <div class="mb-3">
@@ -176,8 +217,8 @@
             <p class="border border-primary-black p-2 mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus interdum vulputate. Ut dignissim leo nec semper tempus. Maecenas pretium turpis sed efficitur viverra.</p>
           </div>
 
-          <input class="btn btn-success" type="submit" value="View Chat">
-          <input class="btn btn-success" type="submit" value="View Calender">
+          <input class="btn btn-success" type="button" value="View Chat">
+          <input class="btn btn-success" type="button" value="View Calender">
         </form>
       </div>
     </div>
@@ -188,7 +229,7 @@
         <h3 class="card-title">User 1</h5>
         <form class="row text-center mt-2">
           <div class="mb-3">
-            <img src="/Images/github-icon-1-logo.webp" class="img-thumbnail" width="75">
+            <img src="/images/github-icon-1-logo.webp" class="img-thumbnail" width="75">
           </div>
 
           <div class="mb-3">
