@@ -1,6 +1,6 @@
 
 import express from 'express';
-//import { getUserInfoWithEmail } from '../resources/sqlTools.mjs';
+import { getUserInfoWithEmail } from '../resources/sqlTools.mjs';
 
 const router = express.Router();
 
@@ -13,13 +13,18 @@ router.post("/", (req, res) => {
   console.log("Login Request Recieved:");
   console.log(req.body)
 
-  // Get user ID with email ID
-//  const userInfo = getUserInfoWithEmail(req.body.userEmail);
+  function queryCallback(userInfoResult) {
+    if (userInfoResult.length > 0) {
+     // Redirect to account dashboard page with user ID
+      res.status(200).redirect(`https://localhost:${process.env.PORT}/dashboard/${userInfoResult.user_id}`);
+    }
+    else {
+     // Redirect back to login page due to failed login
+      res.status(400).redirect(`https://localhost:${process.env.PORT}/login`);
+    }
+  }
 
-  console.log(userInfo);
-
-  // Redirect to account dashboard page with user ID
-  res.status(200).redirect(`/dashboard/${req.body.userEmail}`)
+  getUserInfoWithEmail(req.body.userEmail, );
 });
 
 

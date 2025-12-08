@@ -10,6 +10,7 @@ const Endpoint_tasks= `http://localhost:${PORT}/api/tasks/${window.location.path
 const Endpoint_groups= `http://localhost:${PORT}/api/groups/${window.location.pathname.split('/')[2]}`;
 const Endpoint_users= `http://localhost:${PORT}/api/users/${window.location.pathname.split('/')[2]}`;
 
+
 // Getting list and task card elements
 const upcomingUserTasksList = document.getElementById("upcomingTasksContent");
 const upcomingUserTaskSmallCard = document.getElementById("upcomingTask");
@@ -112,37 +113,6 @@ async function updateTaskData() {
   return dataRes;
 }
 
-async function createTask() {
-  console.log("Running create task....")
-  /*
-  // Query server endpoint
-  let dataRes = await fetch(Endpoint_tasks, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      type: 'create',
-    })
-  }).then(res => {return res.json()})
-
-  return dataRes;
-  */
-}
-
-async function createGroup() {
-  console.log("Running create group....")
-  /*
-  // Query server endpoint
-  let dataRes = await fetch(Endpoint_groups, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: ''
-  }).then(res => {return res.json()})
-
-  return dataRes;
-  */
-}
-
-
 
 function addTaskToTaskList(taskInfo) {
   console.log(taskInfo)
@@ -152,6 +122,8 @@ function addTaskToTaskList(taskInfo) {
 
   // Edit cloned element to reflect task data
   taskCardCopy.classList.remove("d-none")
+  
+  taskCardCopy
 
   // Appending card Task List element
   upcomingUserTasksList.appendChild(taskCardCopy);

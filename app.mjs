@@ -33,7 +33,7 @@ app.use(express.static("./public"))
 app.get('/', (req, res) => {
 
   // Render the website's homepage
-  res.status(200).send("ello, home page ere")
+  res.status(200).send("login.ejs")
 
 });
 

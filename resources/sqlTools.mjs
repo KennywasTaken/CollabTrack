@@ -16,6 +16,19 @@ function connectDB(err) {
   console.log("DB has connected.")
 }
 
+async function getUserInfoWithEmail(Email, callback) {
+ DB.all(userInfoWithEmailQuery(Email), [], (err, rows) => {
+  if (err) {
+     console.log("Error running 'getUserInfoWithEmail' SQL Query:");
+     console.log(err)
+     callback(null)
+   }
+
+   // Cant return row data directly since query is async so we use callbacks
+   callback(rows);
+ });
+}
+
 async function getUserInfoWithID(ID, callback) {
  DB.all(userInfoWithIDQuery(ID), [], (err, rows) => {
   if (err) {
@@ -56,37 +69,36 @@ async function getGroupsWithID(ID, callback) {
 }
 
 
-async function createTask(FormInfo) {
+async function createTask(FormInfo, user_ID, callback) {
   console.log("Creating Task....")
   console.log(FormInfo);
 
-  let resp = DB.run(createTaskQuery(FormInfo, FormInfo.user_id), [], (err) => {
+  let resp = DB.run(createTaskQuery(FormInfo, user_ID), [], (err) => {
     if (err) {
      console.log("Error running 'createTask' SQL Query");
-     return null;
+     callback(0); // Sending 'false' back to indicate query failed
    }
 
    console.log(resp);
 
-   //return resp;
-   return null;
+   callback(1); // Sending 'true' back to indicate query was sucessful
   });
 }
 
-async function updateTask(FormInfo) {
+async function updateTask(FormInfo, user_ID, callback) {
   console.log("Updating Task....");
   console.log(FormInfo);
 
-  let resp = DB.run(updateTaskQuery(FormInfo, FormInfo.user_id), [], (err) => {
+  let resp = DB.run(updateTaskQuery(FormInfo, user_ID), [], (err) => {
     if (err) {
      console.log("Error running 'updateTask' SQL Query");
-     return null;
+
+     callback(0); // Sending 'false' back to indicate query failed
    }
 
    console.log(resp);
 
-   //return resp;
-   return null;
+   callback(1); // Sending 'true' back to indicate query was sucessful
   });
 }
 
@@ -97,18 +109,22 @@ async function createGroup(GroupInfo, userID) {
   let resp = DB.run(createGroupQuery(GroupInfo, userID), [], (err) => {
     if (err) {
      console.log("Error running 'createGroup' SQL Query");
-     return null;
+
+     callback(0); // Sending 'false' back to indicate query failed
    }
 
    console.log(resp);
 
-   //return resp;
-   return null;
+   callback(1); // Sending 'true' back to indicate query was sucessful
   });
 }
 
-export { DB, getTasksWithID, getGroupsWithID, getUserInfoWithID,createTask, updateTask, createGroup };
+export { DB, getUserInfoWithEmail,getTasksWithID, getGroupsWithID, getUserInfoWithID,createTask, updateTask, createGroup };
 
+
+function userInfoWithEmailQuery(user_id) { 
+  return `SELECT * FROM Users WHERE email=${user_id}`;
+};
 
 function userInfoWithIDQuery(user_id) { 
   return `SELECT * FROM Users WHERE user_id=${user_id}`;
